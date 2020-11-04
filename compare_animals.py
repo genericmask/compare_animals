@@ -1,9 +1,9 @@
 
 def main():
-    cats_path = "C:/Users/Casey/Downloads/sorted_cats.txt"
-    dogs_path = "C:/Users/Casey/Downloads/sorted_dogs.txt"
-    cats_ans_path = "C:/Users/Casey/Downloads/cats_ans.txt"
-    dogs_ans_path = "C:/Users/Casey/Downloads/dogs_ans.txt"
+    cats_path = "sorted_cats.txt"
+    dogs_path = "sorted_dogs.txt"
+    cats_ans_path = "cats_ans.txt"
+    dogs_ans_path = "dogs_ans.txt"
     
     cats = get_list(cats_path)
     dogs = get_list(dogs_path)
