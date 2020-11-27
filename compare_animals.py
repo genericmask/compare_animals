@@ -6,7 +6,8 @@ def main():
 
     test = get_list(test_path)
     ans = get_list(ans_path)
-
+    
+    # Add if statements using this as a template for each comparison you want to make
     if(test is not None and ans is not None):
         print(f"\n{test_path}")
         compare(test, ans)
@@ -30,7 +31,7 @@ def remove_ws(listOfElems):
         lines.append("".join(elem.split()))
     return lines
 
-# accepts the name of what is being tested, a list of things to test, and a list of answers with no white space.
+# accepts a list of things to test and a list of answers.
 def compare(listOfElems, ans_key):
     ans_ref = remove_ws(ans_key) # Get a list with no ws in each element to make comparison easier
     dictOfDupes = dict()
