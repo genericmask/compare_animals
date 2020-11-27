@@ -1,19 +1,15 @@
 
-def main():
-    cats_path = "sorted_cats.txt"
-    dogs_path = "sorted_dogs.txt"
-    cats_ans_path = "cats_ans.txt"
-    dogs_ans_path = "dogs_ans.txt"
-    
-    cats = get_list(cats_path)
-    dogs = get_list(dogs_path)
-    cats_ans = get_list_no_ws(cats_ans_path)
-    dogs_ans = get_list_no_ws(dogs_ans_path)
 
-    if(cats is not None and cats_ans is not None):
-        compare(cats_path, cats, cats_ans)
-    if(dogs is not None and dogs_ans is not None):
-        compare(dogs_path, dogs, dogs_ans)
+def main():
+    test_path = "file_name.txt"
+    ans_path = "file_name.txt"
+
+    test = get_list(test_path)
+    ans = get_list(ans_path)
+
+    if(test is not None and ans is not None):
+        print(f"\n{test_path}")
+        compare(test, ans)
 
 # accepts a file path and returns a list of the lines in the file.
 def get_list(path):
@@ -28,23 +24,16 @@ def get_list(path):
         return None
     return lines
 
-# accepts a file path and returns a list of the lines in the file with no whitespace
-def get_list_no_ws(path):
+def remove_ws(listOfElems):
     lines = []
-    try:
-        with open(path) as file:
-            for line in file:
-                lines.append("".join(line.split()))
-        file.close()
-    except:
-        print(f"{path} not found.")
-        return None
+    for elem in listOfElems:
+        lines.append("".join(elem.split()))
     return lines
 
 # accepts the name of what is being tested, a list of things to test, and a list of answers with no white space.
-def compare(name, listOfElems, ans):
-    print(f"\n{name}")
-    dictOfElems = dict()
+def compare(listOfElems, ans_key):
+    ans_ref = remove_ws(ans_key) # Get a list with no ws in each element to make comparison easier
+    dictOfDupes = dict()
     not_in = 0
     order = 0
     duplicates = 0
@@ -53,21 +42,21 @@ def compare(name, listOfElems, ans):
         error = ""
         try:
             name, gender, age, weight = elem.split()
-            if "".join(elem.split()) not in ans:
-                error = " -- Doesn't match answer key"
+            if "".join(elem.split()) not in ans_ref:
+                error = " -- Doesn't match answer key" 
                 not_in += 1
             if int(age) < int(age_temp):
                 error += " -- Out of order"
                 order += 1
             else:
                 age_temp = age
-            if elem in dictOfElems:
-                dictOfElems[elem] += 1
+            if elem in dictOfDupes:
+                dictOfDupes[elem] += 1
                 error += " -- Duplicate"
                 duplicates += 1
             else:
-                dictOfElems[elem] = 1  
-            print ("{:<12} {:<7} {:<2} {:<7}".format(name, gender, age, weight), error)
+                dictOfDupes[elem] = 1  
+            print ("{:<12} {:<7} {:<2} {:<5}".format(name, gender, age, weight), error)
         except ValueError as try_error:
             print(elem, "--", try_error)
             not_in += 1
